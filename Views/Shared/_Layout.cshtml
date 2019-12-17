@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Tilausjärjestelmä</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/Home/About">Vähätyö Plc</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Home">Kotisivu<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown show">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tilausjärjestelmä</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px);">
+                        <a class="dropdown-item" href="/Tilaukset">Tilaukset</a>
+                        <a class="dropdown-item" href="/Tilausrivit">Tilaustiedot</a>
+                        <a class="dropdown-item" href="/Tuotteet">Tuotteet</a>
+                        <a class="dropdown-item" href="/Tuotteet/Index2">Tuotekuvasto</a>
+                        <a class="dropdown-item" href="/Asiakkaat">Asiakkaat</a>
+                        <a class="dropdown-item" href="/Postitoimipaikats">Postitoimipaikat</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown show">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tietoja yrityksestä</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px);">
+                        <a class="dropdown-item" href="/Home/About">Vähätyö Global Enterprises</a>
+                        <a class="dropdown-item" href="/Home/Contact">Yhteystiedot</a>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Home/Login">Kirjaudu sisään<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Home/Logout">Kirjaudu ulos<span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                    @using System.Globalization
+                    @{
+                        string loggausInfo = "";
+                        if (@Session["Käyttäjätunnus"] == null)
+                        {
+                            loggausInfo = "Et ole kirjautunut järjestelmään.";
+                        }
+                        else
+                        {
+                            loggausInfo = "Olet kirjautunut käyttäjätunnuksella: " + @Session["Käyttäjätunnus"];
+                        }
+                    }
+                    <a class="nav-link" style="color:darkorange">@loggausInfo<span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+
+  
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Vähätyö Global Enterprises Plc</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

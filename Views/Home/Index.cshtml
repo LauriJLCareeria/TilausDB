@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Tilausjärjestelmä";
+}
+
+<div class="jumbotron">
+    <h1>Vähätyön Tilausjärjestelmä</h1>
+    <p class="lead">Tervetuloa Vähätyön tilausjärjestelmäsivustolle.</p>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Tuotteet</h2>
+        <p>
+            Tuotetietojen muokkaus sekä tuotteiden lisääminen ja poistaminen.
+        </p>
+        <p><a class="btn btn-info" @Html.ActionLink("Tuotteet »", "Index", "Tuotteet")</a></p>
+        <p><a class="btn btn-info" @Html.ActionLink("Tuotekuvasto »", "Index2", "Tuotteet")</a></p>
+
+    </div>
+    <div class="col-md-4">
+        <h2>Asiakkaat</h2>
+        <p>Asiakastietojen selaus, muokkaus sekä asiakkaiden lisääminen ja poistaminen.</p>
+        <p><a class="btn btn-info" @Html.ActionLink("Asiakkaat »", "Index", "Asiakkaat")</a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Tilaukset</h2>
+        <p>Tilauskannan selaus, muokkaus sekä uusien tilausten lisääminen.</p>
+        <p><a class="btn btn-info" @Html.ActionLink("Tilaukset »", "Index", "Tilaukset")</a></p>
+        <p><a class="btn btn-info" @Html.ActionLink("Tilausrivit »", "Index", "Tilausrivit")</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Postitoimipaikat</h2>
+        <p>Postitoimipaikkojen selaus, muokkaus sekä uusien postitoimipaikkojen lisääminen.</p>
+        <p><a class="btn btn-info" @Html.ActionLink("Postitoimipaikat »", "Index", "Postitoimipaikats")</a></p>
+    </div>
+
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebAppTilausDB.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Tuotteet";
+}
+
+<h2>Tuotteet</h2>
+
+<p>
+    <a class="btn btn-info" @Html.ActionLink("Lisää tuote", "Create")</a>
+    <a class="btn btn-info" @Html.ActionLink("Kuvasto", "Index2")</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TuoteID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nimi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ahinta)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TuoteID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nimi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ahinta)€
+                </td>
+                <td>
+                    <a class="nav-link" href="/Tuotteet/Index2"> <img src="@item.KuvaLinkki" alt="@item.KuvaLinkki" title="@item.Nimi" height="50" onclick="@item.KuvaLinkki"></a>
+                </td>
+                <td>
+                <a class="btn btn-success" @Html.ActionLink("Tiedot", "Details", new { id = item.TuoteID })
+                <a class="btn btn-warning" @Html.ActionLink("Muokkaa", "Edit", new { id = item.TuoteID })
+                <a class="btn btn-danger" @Html.ActionLink("Poista", "Delete", new { id = item.TuoteID })
+                </td>
+         </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>
+
+

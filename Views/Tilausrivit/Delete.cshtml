@@ -1,0 +1,56 @@
+﻿@model WebAppTilausDB.Models.Tilausrivit
+
+@{
+    ViewBag.Title = "Poista tilausrivi";
+}
+
+    <h2>Poista tilausrivi</h2>
+
+    <h4>Oletko varma, että haluat poistaa tämän tilausrivin kannasta?</h4>
+<div>
+    <h4>Tilausrivit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TilausID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TilausID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuoteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuoteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ahinta)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Poista" class="btn btn-danger" />
+        <a class="btn btn-success" @Html.ActionLink("Tilausrivit", "Index")
+    </div>
+    }
+</div>

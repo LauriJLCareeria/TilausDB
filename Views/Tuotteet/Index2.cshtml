@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebAppTilausDB.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<div class="container-fluid">
+    <h2>Tuotekuvasto</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-lg-6">
+            <div class="card mb-3" style="width: 25rem;">
+                <h3 class="card-header">@item.Nimi</h3>
+                <div class="card-body">
+                    <h5 class="card-title">Hinta: @item.Ahinta€</h5>
+                    <h5 class="card-title">TuoteID: @item.TuoteID</h5>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@item.KuvaLinkki" title="@item.Nimi" alt="@item.KuvaLinkki">
+                <div class="card-body">
+                    <a class="btn btn-warning" @Html.ActionLink("Muokkaa", "Edit", new { id = item.TuoteID })
+                    <a class="btn btn-danger" @Html.ActionLink("Poista", "Delete", new { id = item.TuoteID })
+                    <a class="btn btn-success" @Html.ActionLink("Tuotteet", "Index")
+                </div>
+            </div>
+        </div>  
+        }
+    </div>  
+</div>
+
+
+
+
+
+

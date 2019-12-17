@@ -1,0 +1,49 @@
+﻿@model WebAppTilausDB.Models.Tilausrivit
+
+@{
+    ViewBag.Title = "Tiedot";
+}
+
+<h2>Tilauksen tiedot</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TilausID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TilausID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuoteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuoteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ahinta)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-warning" @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TilausriviID })
+    <a class="btn btn-success" @Html.ActionLink("Tilaustiedot", "Index")
+</p>
