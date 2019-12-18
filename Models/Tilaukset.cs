@@ -20,11 +20,11 @@ namespace WebAppTilausDB.Models
         public string Toimitusosoite { get; set; }
         public string Postinumero { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d.M.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public Nullable<System.DateTime> Tilauspvm { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d.M.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public Nullable<System.DateTime> Toimituspvm { get; set; }
         public string Nimi { get; set; }

@@ -9,6 +9,7 @@ namespace WebAppTilausDB.Controllers
 {
     public class HomeController : Controller
     {
+        private TilausDBEntities1 db = new TilausDBEntities1();
         public ActionResult Index()
         {
             return View();
@@ -56,6 +57,27 @@ namespace WebAppTilausDB.Controllers
             Session.Abandon();
             ViewBag.LoggedStatus = "Ei kirjautunut";
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult CreateUserID()
+        {
+            return View();
+        }
+
+        // POST: UserID/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUserID([Bind(Include = "Käyttäjätunnus,Salasana")] Logins userid)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Logins.Add(userid);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            //ViewBag.Logins = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+            return View(userid);
         }
     }
 }

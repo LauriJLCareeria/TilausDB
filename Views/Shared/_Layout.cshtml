@@ -38,11 +38,13 @@
                         <a class="dropdown-item" href="/Home/Contact">Yhteystiedot</a>
                     </div>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Login">Kirjaudu sisään<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Logout">Kirjaudu ulos<span class="sr-only">(current)</span></a>
+                <li class="nav-item dropdown show">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Kirjautuminen järjestelmään</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px);">
+                        <a class="dropdown-item" href="/Home/Login">Kirjaudu sisään</a>
+                        <a class="dropdown-item" href="/Home/Logout">Kirjaudu ulos</a>
+                        <a class="dropdown-item" href="/Home/CreateUserID">Rekisteröidy käyttäjäksi</a>
+                    </div>
                 </li>
                 <li>
                     @using System.Globalization

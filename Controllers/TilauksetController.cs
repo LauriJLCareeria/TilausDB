@@ -49,7 +49,20 @@ namespace WebAppTilausDB.Controllers
         {
             ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi");
             ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
+
+            List<SelectListItem> postitmplista = new List<SelectListItem>();
+            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+            {
+                postitmplista.Add(new SelectListItem
+                {
+                    Value = postitmp.Postinumero.ToString(),
+                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                });
+            }
+
+            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", null);
+
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
             return View();
         }
 
@@ -81,7 +94,19 @@ namespace WebAppTilausDB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", tilaukset.Postinumero);
+
+            List<SelectListItem> postitmplista = new List<SelectListItem>();
+            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+            {
+                postitmplista.Add(new SelectListItem
+                {
+                    Value = postitmp.Postinumero.ToString(),
+                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                });
+            }
+
+            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", tilaukset.Postinumero);
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", tilaukset.Postinumero);
             return View(tilaukset);
         }
 

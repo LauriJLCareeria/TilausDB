@@ -47,7 +47,18 @@ namespace WebAppTilausDB.Controllers
         // GET: Asiakkaat/Create
         public ActionResult Create()
         {
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
+            List<SelectListItem> postitmplista = new List<SelectListItem>();
+            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+            {
+                postitmplista.Add(new SelectListItem
+                {
+                    Value = postitmp.Postinumero.ToString(),
+                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                });
+            }
+
+            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", null);
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
             return View();
         }
 
@@ -79,8 +90,21 @@ namespace WebAppTilausDB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
-            ViewBag.Postitoimipaikka = new SelectList(db.Postitoimipaikat, "Postitoimipaikka", "Postitoimipaikka", asiakkaat.Postitoimipaikat.Postitoimipaikka);
+
+            List<SelectListItem> postitmplista = new List<SelectListItem>();
+            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+            {
+                postitmplista.Add(new SelectListItem
+                {
+                    Value = postitmp.Postinumero.ToString(),
+                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                });
+            }
+
+            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", asiakkaat.Postinumero);
+
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+            //ViewBag.Postitoimipaikka = new SelectList(db.Postitoimipaikat, "Postitoimipaikka", "Postitoimipaikka", asiakkaat.Postitoimipaikat.Postitoimipaikka);
             return View(asiakkaat);
         }
 
@@ -95,6 +119,7 @@ namespace WebAppTilausDB.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }

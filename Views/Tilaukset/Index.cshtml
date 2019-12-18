@@ -57,10 +57,10 @@
                 @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tilauspvm)
+                @Html.ValueFor(modelItem => item.Tilauspvm,"{0:d}")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Toimituspvm)
+                @Html.ValueFor(modelItem => item.Toimituspvm,"{0:d}")
             </td>
 
             <td>
