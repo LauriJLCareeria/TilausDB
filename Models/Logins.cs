@@ -16,12 +16,12 @@ namespace WebAppTilausDB.Models
     public partial class Logins
     {
         public int LoginId { get; set; }
-        [Required(ErrorMessage = "Anna käyttäjätunnus!")]
+        [Required(ErrorMessage = "Anna käyttäjätunnus.")]
         public string Käyttäjätunnus { get; set; }
         [DataType(DataType.Password)]
-        [Required (ErrorMessage = "Anna salasana!")]
+        [Required(ErrorMessage = "Anna salasana.")]
         public string Salasana { get; set; }
-        public string LoggedStatus { get; set; }
+        public string Rooli { get; set; }
         public string LoginErrorMessage { get; set; }
     }
 }

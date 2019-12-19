@@ -44,19 +44,28 @@
                         <a class="dropdown-item" href="/Home/Login">Kirjaudu sisään</a>
                         <a class="dropdown-item" href="/Home/Logout">Kirjaudu ulos</a>
                         <a class="dropdown-item" href="/Home/CreateUserID">Rekisteröidy käyttäjäksi</a>
+                        <a class="dropdown-item" href="/Logins">Käyttäjät</a>
                     </div>
                 </li>
                 <li>
                     @using System.Globalization
                     @{
                         string loggausInfo = "";
-                        if (@Session["Käyttäjätunnus"] == null)
+                        if (@Session["Käyttäjätunnus"] == null && @Session["KäyttäjätunnusAdmin"] == null && @Session["KäyttäjätunnusSuper"] == null)
                         {
                             loggausInfo = "Et ole kirjautunut järjestelmään.";
                         }
-                        else
+                        else if (Session["KäyttäjätunnusAdmin"] == null && @Session["KäyttäjätunnusSuper"] == null)
                         {
                             loggausInfo = "Olet kirjautunut käyttäjätunnuksella: " + @Session["Käyttäjätunnus"];
+                        }
+                        else if (Session["Käyttäjätunnus"] == null && @Session["KäyttäjätunnusSuper"] == null)
+                        {
+                            loggausInfo = "Olet kirjautunut käyttäjätunnuksella: " + @Session["KäyttäjätunnusAdmin"];
+                        }
+                        else
+                        {
+                            loggausInfo = "Olet kirjautunut käyttäjätunnuksella: " + @Session["KäyttäjätunnusSuper"];
                         }
                     }
                     <a class="nav-link" style="color:darkorange">@loggausInfo<span class="sr-only">(current)</span></a>

@@ -1,0 +1,41 @@
+﻿@model WebAppTilausDB.Models.Logins
+
+@{
+    ViewBag.Title = "Käyttäjän tiedot";
+}
+
+<h2>Käyttäjän tiedot</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Käyttäjätunnus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Käyttäjätunnus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salasana)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salasana)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rooli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rooli)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-warning" @Html.ActionLink("Muokkaa", "Edit", new { id = Model.LoginId })
+    <a class="btn btn-success" @Html.ActionLink("Käyttäjät", "Index")
+</p>

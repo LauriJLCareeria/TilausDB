@@ -18,7 +18,7 @@ namespace WebAppTilausDB.Controllers
         // GET: Tuotteet
         public ActionResult Index()
         {
-            if (Session["Käyttäjätunnus"] == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
                 return RedirectToAction("login", "home");
             }
@@ -31,7 +31,7 @@ namespace WebAppTilausDB.Controllers
 
         public ActionResult Index2()
         {
-            if (Session["Käyttäjätunnus"] == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
                 return RedirectToAction("login", "home");
             }

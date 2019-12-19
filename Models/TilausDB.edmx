@@ -33,6 +33,7 @@
           <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Käyttäjätunnus" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Salasana" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rooli" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
@@ -228,6 +229,7 @@
           <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Käyttäjätunnus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Salasana" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rooli" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -303,6 +305,7 @@
           <EntitySetMapping Name="Logins">
             <EntityTypeMapping TypeName="TilausDBModel.Logins">
               <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="Rooli" ColumnName="Rooli" />
                 <ScalarProperty Name="Salasana" ColumnName="Salasana" />
                 <ScalarProperty Name="Käyttäjätunnus" ColumnName="Käyttäjätunnus" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />

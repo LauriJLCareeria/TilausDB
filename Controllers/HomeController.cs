@@ -36,19 +36,36 @@ namespace WebAppTilausDB.Controllers
         public ActionResult Authorize(Logins LoginModel)
         {
             TilausDBEntities1 db = new TilausDBEntities1();
-            var LoggedUser = db.Logins.SingleOrDefault(x => x.Käyttäjätunnus == LoginModel.Käyttäjätunnus && x.Salasana == LoginModel.Salasana); 
+            var LoggedUser = db.Logins.SingleOrDefault(x => x.Käyttäjätunnus == LoginModel.Käyttäjätunnus && x.Salasana == LoginModel.Salasana);
             if (LoggedUser != null)
             {
-                ViewBag.LoginMessage = "Onnistunut kirjautuminen";
-                ViewBag.LoggedStatus = "Kirjautunut";
-                Session["Käyttäjätunnus"] = LoggedUser.Käyttäjätunnus;
-                return RedirectToAction("Index", "Home");
+                if (LoggedUser.Rooli.Equals("superuser"))
+                {
+                    ViewBag.LoginMessage = "Onnistunut kirjautuminen (pääkäyttäjä)";
+                    ViewBag.LoggedStatus = "Kirjautunut pääkyttäjänä";
+                    Session["KäyttäjätunnusSuper"] = LoggedUser.Käyttäjätunnus + " (pääkäyttäjä)";
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (LoggedUser.Rooli.Equals("admin"))
+                {
+                    ViewBag.LoginMessage = "Onnistunut kirjautuminen (hallinta)";
+                    ViewBag.LoggedStatus = "Kirjautunut";
+                    Session["KäyttäjätunnusAdmin"] = LoggedUser.Käyttäjätunnus + " (hallintaoikeudet)";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.LoginMessage = "Onnistunut kirjautuminen";
+                    ViewBag.LoggedStatus = "Kirjautunut";
+                    Session["Käyttäjätunnus"] = LoggedUser.Käyttäjätunnus;
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
                 ViewBag.LoginMessage = "Kirjautuminen epäonnistui";
                 ViewBag.LoggedStatus = "Ei kirjautunut";
-                LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana."; 
+                LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
                 return View("Login", LoginModel);
             }
         }
@@ -67,7 +84,7 @@ namespace WebAppTilausDB.Controllers
         // POST: UserID/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUserID([Bind(Include = "Käyttäjätunnus,Salasana")] Logins userid)
+        public ActionResult CreateUserID([Bind(Include = "Käyttäjätunnus,Salasana,Rooli")] Logins userid)
         {
             if (ModelState.IsValid)
             {
@@ -75,8 +92,6 @@ namespace WebAppTilausDB.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            //ViewBag.Logins = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(userid);
         }
     }

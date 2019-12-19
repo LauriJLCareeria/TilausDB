@@ -18,7 +18,7 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilaukset
         public ActionResult Index()
         {
-            if (Session["Käyttäjätunnus"] == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
                 return RedirectToAction("login", "home");
             }
