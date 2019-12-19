@@ -20,7 +20,7 @@ namespace WebAppTilausDB.Controllers
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return RedirectToAction("login", "home");
+                return RedirectToAction("AccessDenied", "Logins");
             }
             else
             {
@@ -32,38 +32,49 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilaukset/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilaukset tilaukset = db.Tilaukset.Find(id);
-            if (tilaukset == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilaukset tilaukset = db.Tilaukset.Find(id);
+                if (tilaukset == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilaukset);
             }
-            return View(tilaukset);
         }
 
         // GET: Tilaukset/Create
         public ActionResult Create()
         {
-            ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi");
-            ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
-
-            List<SelectListItem> postitmplista = new List<SelectListItem>();
-            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                postitmplista.Add(new SelectListItem
-                {
-                    Value = postitmp.Postinumero.ToString(),
-                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
-                });
+                return RedirectToAction("AccessDenied", "Logins");
             }
+            else
+            {
+                ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi");
+                ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
 
-            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", null);
-
-            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
-            return View();
+                List<SelectListItem> postitmplista = new List<SelectListItem>();
+                foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+                {
+                    postitmplista.Add(new SelectListItem
+                    {
+                        Value = postitmp.Postinumero.ToString(),
+                        Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                    });
+                }
+                ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", null);
+                return View();
+            }
         }
 
         // POST: Tilaukset/Create
@@ -85,29 +96,36 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilaukset/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilaukset tilaukset = db.Tilaukset.Find(id);
-            if (tilaukset == null)
+            else
             {
-                return HttpNotFound();
-            }
-
-            List<SelectListItem> postitmplista = new List<SelectListItem>();
-            foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
-            {
-                postitmplista.Add(new SelectListItem
+                if (id == null)
                 {
-                    Value = postitmp.Postinumero.ToString(),
-                    Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
-                });
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilaukset tilaukset = db.Tilaukset.Find(id);
+                if (tilaukset == null)
+                {
+                    return HttpNotFound();
+                }
+
+                List<SelectListItem> postitmplista = new List<SelectListItem>();
+                foreach (Postitoimipaikat postitmp in db.Postitoimipaikat)
+                {
+                    postitmplista.Add(new SelectListItem
+                    {
+                        Value = postitmp.Postinumero.ToString(),
+                        Text = postitmp.Postinumero.ToString() + " " + postitmp.Postitoimipaikka
+                    });
+                }
+
+                ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", tilaukset.Postinumero);
+                return View(tilaukset);
             }
 
-            ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", tilaukset.Postinumero);
-            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", tilaukset.Postinumero);
-            return View(tilaukset);
         }
 
         // POST: Tilaukset/Edit/5
@@ -128,16 +146,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilaukset/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilaukset tilaukset = db.Tilaukset.Find(id);
-            if (tilaukset == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilaukset tilaukset = db.Tilaukset.Find(id);
+                if (tilaukset == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilaukset);
             }
-            return View(tilaukset);
         }
 
         // POST: Tilaukset/Delete/5

@@ -19,7 +19,7 @@ namespace WebAppTilausDB.Controllers
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return RedirectToAction("login", "home");
+                return RedirectToAction("AccessDenied", "Logins");
             }
             else
             {
@@ -31,22 +31,36 @@ namespace WebAppTilausDB.Controllers
         // GET: Postitoimipaikats/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
-            if (postitoimipaikat == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
+                if (postitoimipaikat == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(postitoimipaikat);
             }
-            return View(postitoimipaikat);
         }
 
         // GET: Postitoimipaikats/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
+            {
+                return RedirectToAction("AccessDenied", "Logins");
+            }
+            else
+            {
+                return View();
+            }              
         }
 
         // POST: Postitoimipaikats/Create
@@ -67,16 +81,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Postitoimipaikats/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
-            if (postitoimipaikat == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
+                if (postitoimipaikat == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(postitoimipaikat);
             }
-            return View(postitoimipaikat);
         }
 
         [HttpPost]
@@ -95,16 +116,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Postitoimipaikats/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
-            if (postitoimipaikat == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
+                if (postitoimipaikat == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(postitoimipaikat);
             }
-            return View(postitoimipaikat);
         }
 
         // POST: Postitoimipaikats/Delete/5

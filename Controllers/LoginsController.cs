@@ -34,7 +34,7 @@ namespace WebAppTilausDB.Controllers
         // GET: Logins/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["KäyttäjätunnusAdmin"] == null ^ Session["KäyttäjätunnusSuper"] == null)
+            if (Session["KäyttäjätunnusSuper"] == null)
             {
                 return RedirectToAction("AccessDenied", "Logins");
             }
@@ -62,14 +62,7 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
-                if (Session["KäyttäjätunnusAdmin"] == null)
-                {
-                    return RedirectToAction("login", "home");
-                }
-                else
-                {
-                    return View();
-                }
+                return View();
             }
         }
 

@@ -20,26 +20,24 @@ namespace WebAppTilausDB.Controllers
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return RedirectToAction("login", "home");
+                return RedirectToAction("AccessDenied", "Logins");
             }
             else
             {
                 return View(db.Tuotteet.ToList());
-            }
-               
+            }            
         }
 
         public ActionResult Index2()
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return RedirectToAction("login", "home");
+                return RedirectToAction("AccessDenied", "Logins");
             }
             else
             {
                 return View(db.Tuotteet.ToList());
-            }
-               
+            }             
         }
 
         // GET: Tuotteet/Details/5
@@ -60,12 +58,18 @@ namespace WebAppTilausDB.Controllers
         // GET: Tuotteet/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
+            {
+                return RedirectToAction("AccessDenied", "Logins");
+            }
+            else
+            {
+                return View();
+            }               
         }
 
         // POST: Tuotteet/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TuoteID,Nimi,Ahinta,KuvaLinkki")] Tuotteet tuotteet)
@@ -76,23 +80,29 @@ namespace WebAppTilausDB.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(tuotteet);
         }
 
         // GET: Tuotteet/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tuotteet tuotteet = db.Tuotteet.Find(id);
-            if (tuotteet == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tuotteet tuotteet = db.Tuotteet.Find(id);
+                if (tuotteet == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tuotteet);
             }
-            return View(tuotteet);
         }
 
         // POST: Tuotteet/Edit/5
@@ -112,16 +122,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Tuotteet/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tuotteet tuotteet = db.Tuotteet.Find(id);
-            if (tuotteet == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tuotteet tuotteet = db.Tuotteet.Find(id);
+                if (tuotteet == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tuotteet);
             }
-            return View(tuotteet);
         }
 
         // POST: Tuotteet/Delete/5

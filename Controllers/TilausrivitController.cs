@@ -19,7 +19,7 @@ namespace WebAppTilausDB.Controllers
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return RedirectToAction("login", "home");
+                return RedirectToAction("AccessDenied", "Logins");
             }
             else
             {
@@ -31,22 +31,36 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivit/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilausrivit);
             }
-            return View(tilausrivit);
         }
 
         // GET: Tilausrivit/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
+            {
+                return RedirectToAction("AccessDenied", "Logins");
+            }
+            else
+            {
+                return View();
+            }            
         }
 
         [HttpPost]
@@ -66,21 +80,26 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivit/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilausrivit);
             }
-            return View(tilausrivit);
         }
 
         // POST: Tilausrivit/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TilausriviID,TilausID,TuoteID,Maara,Ahinta")] Tilausrivit tilausrivit)
@@ -97,16 +116,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivit/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("AccessDenied", "Logins");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilausrivit);
             }
-            return View(tilausrivit);
         }
 
         // POST: Tilausrivit/Delete/5
@@ -114,10 +140,17 @@ namespace WebAppTilausDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            db.Tilausrivit.Remove(tilausrivit);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
+            {
+                return RedirectToAction("AccessDenied", "Logins");
+            }
+            else
+            {
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                db.Tilausrivit.Remove(tilausrivit);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
