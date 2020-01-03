@@ -39,14 +39,14 @@ namespace WebAppTilausDB.Controllers
             var LoggedUser = db.Logins.SingleOrDefault(x => x.Käyttäjätunnus == LoginModel.Käyttäjätunnus && x.Salasana == LoginModel.Salasana);
             if (LoggedUser != null)
             {
-                if (LoggedUser.Rooli.Equals("superuser"))
+                if (LoggedUser.Rooli.Equals("Pääkäyttäjä"))
                 {
                     ViewBag.LoginMessage = "Onnistunut kirjautuminen (pääkäyttäjä)";
                     ViewBag.LoggedStatus = "Kirjautunut pääkyttäjänä";
                     Session["KäyttäjätunnusSuper"] = LoggedUser.Käyttäjätunnus + " (pääkäyttäjä)";
                     return RedirectToAction("Index", "Home");
                 }
-                else if (LoggedUser.Rooli.Equals("admin"))
+                else if (LoggedUser.Rooli.Equals("Hallintakäyttäjä"))
                 {
                     ViewBag.LoginMessage = "Onnistunut kirjautuminen (hallinta)";
                     ViewBag.LoggedStatus = "Kirjautunut";
@@ -57,7 +57,7 @@ namespace WebAppTilausDB.Controllers
                 {
                     ViewBag.LoginMessage = "Onnistunut kirjautuminen";
                     ViewBag.LoggedStatus = "Kirjautunut";
-                    Session["Käyttäjätunnus"] = LoggedUser.Käyttäjätunnus;
+                    Session["Käyttäjätunnus"] = LoggedUser.Käyttäjätunnus + " (peruskäyttöoikeudet)";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -78,6 +78,16 @@ namespace WebAppTilausDB.Controllers
 
         public ActionResult CreateUserID()
         {
+            List<SelectListItem> userrolelista = new List<SelectListItem>();
+            {
+                userrolelista.Add(new SelectListItem
+                {
+                    Value = "Peruskäyttäjä",
+                    Text = "Peruskäyttäjä"
+                });
+            }
+
+            ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
             return View();
         }
 

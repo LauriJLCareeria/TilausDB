@@ -62,6 +62,17 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
+                List<SelectListItem> userrolelista = new List<SelectListItem>();
+                foreach (UserRoles userrole in db.UserRoles)
+                {
+                    userrolelista.Add(new SelectListItem
+                    {
+                        Value = userrole.Rooli.ToString(),
+                        Text = userrole.Rooli.ToString()
+                    });
+                }
+
+                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
                 return View();
             }
         }
@@ -100,6 +111,17 @@ namespace WebAppTilausDB.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                List<SelectListItem> userrolelista = new List<SelectListItem>();
+                foreach (UserRoles userrole in db.UserRoles)
+                {
+                    userrolelista.Add(new SelectListItem
+                    {
+                        Value = userrole.Rooli,
+                        Text = userrole.Rooli.ToString()
+                    });
+                }
+
+                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
                 Logins logins = db.Logins.Find(id);
                 if (logins == null)
                 {

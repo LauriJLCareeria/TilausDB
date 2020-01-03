@@ -11,14 +11,14 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Asiakkaat
     {
         public int AsiakasID { get; set; }
         public string Nimi { get; set; }
         public string Osoite { get; set; }
         public string Postinumero { get; set; }
-
+    
         public virtual Postitoimipaikat Postitoimipaikat { get; set; }
     }
 }
