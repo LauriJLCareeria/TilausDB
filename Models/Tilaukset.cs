@@ -11,14 +11,21 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Tilaukset
     {
         public int TilausID { get; set; }
         public Nullable<int> AsiakasID { get; set; }
         public string Toimitusosoite { get; set; }
         public string Postinumero { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d.M.yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public Nullable<System.DateTime> Tilauspvm { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d.M.yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public Nullable<System.DateTime> Toimituspvm { get; set; }
         public string Nimi { get; set; }
     
