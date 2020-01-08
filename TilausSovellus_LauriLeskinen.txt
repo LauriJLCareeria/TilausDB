@@ -1,0 +1,21 @@
+OSOITE
+------
+
+https://webapptilausdb20191218070039.azurewebsites.net/
+
+
+KÄYTTÄJÄTILIT
+-------------
+
+Peruskäyttäjä
+Username: teppo
+Password: testaaja
+
+Hallintakäyttäjä
+Username: hannu
+Password: hallinta
+
+Pääkäyttäjä
+Username: pekka
+Password: pääkäyttäjä
+

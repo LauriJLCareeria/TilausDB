@@ -40,7 +40,7 @@ namespace WebAppTilausDB.Controllers
             }             
         }
 
-        // GET: Tuotteet/Details/5
+        // GET: Tuotteet/Details
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace WebAppTilausDB.Controllers
             return View(tuotteet);
         }
 
-        // GET: Tuotteet/Edit/5
+        // GET: Tuotteet/Edit
         public ActionResult Edit(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -105,7 +105,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Tuotteet/Edit/5
+        // POST: Tuotteet/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TuoteID,Nimi,Ahinta,KuvaLinkki")] Tuotteet tuotteet)
@@ -141,7 +141,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Tuotteet/Delete/5
+        // POST: Tuotteet/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

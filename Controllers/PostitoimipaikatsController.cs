@@ -28,7 +28,7 @@ namespace WebAppTilausDB.Controllers
 
         }
 
-        // GET: Postitoimipaikats/Details/5
+        // GET: Postitoimipaikats/Details
         public ActionResult Details(string id)
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -78,7 +78,7 @@ namespace WebAppTilausDB.Controllers
             return View(postitoimipaikat);
         }
 
-        // GET: Postitoimipaikats/Edit/5
+        // GET: Postitoimipaikats/Edit
         public ActionResult Edit(string id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -113,7 +113,7 @@ namespace WebAppTilausDB.Controllers
             return View(postitoimipaikat);
         }
 
-        // GET: Postitoimipaikats/Delete/5
+        // GET: Postitoimipaikats/Delete
         public ActionResult Delete(string id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -135,7 +135,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Postitoimipaikats/Delete/5
+        // POST: Postitoimipaikats/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

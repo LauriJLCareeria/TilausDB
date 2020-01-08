@@ -126,7 +126,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Asiakkaat/Edit/5
+        // POST: Asiakkaat/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero,Postitoimipaikka")] Asiakkaat asiakkaat)
@@ -142,7 +142,7 @@ namespace WebAppTilausDB.Controllers
             return View(asiakkaat);
         }
 
-        // GET: Asiakkaat/Delete/5
+        // GET: Asiakkaat/Delete
         public ActionResult Delete(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -164,7 +164,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Asiakkaat/Delete/5
+        // POST: Asiakkaat/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
