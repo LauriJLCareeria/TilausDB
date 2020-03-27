@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\laurileskinen\source\repos\LauriJLCareeria\TilausDB\Models\TilausDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\laurileskinen\source\repos\BACKUP\TilausDB\Models\TilausDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

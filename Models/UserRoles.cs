@@ -11,19 +11,18 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Logins
+    
+    public partial class UserRoles
     {
-        public int LoginId { get; set; }
-        [Required(ErrorMessage = "Anna käyttäjätunnus!")]
-        public string Käyttäjätunnus { get; set; }
-        [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Anna salasana!")]
-        public string Salasana { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserRoles()
+        {
+            this.Logins = new HashSet<Logins>();
+        }
+    
         public string Rooli { get; set; }
-        public string LoginErrorMessage { get; set; }
-
-        public virtual UserRoles UserRoles { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logins> Logins { get; set; }
     }
 }

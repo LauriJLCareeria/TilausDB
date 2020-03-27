@@ -66,7 +66,7 @@ namespace WebAppTilausDB.Controllers
                 ViewBag.LoginMessage = "Kirjautuminen epäonnistui";
                 ViewBag.LoggedStatus = "Ei kirjautunut";
                 LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-                return View("Login", LoginModel);
+                return View("Index", LoginModel);
             }
         }
         public ActionResult LogOut()
@@ -78,6 +78,16 @@ namespace WebAppTilausDB.Controllers
 
         public ActionResult CreateUserID()
         {
+            List<SelectListItem> userrolelista = new List<SelectListItem>();
+            {
+                userrolelista.Add(new SelectListItem
+                {
+                    Value = "user",
+                    Text = "user"
+                });
+            }
+
+            ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
             return View();
         }
 
@@ -88,6 +98,7 @@ namespace WebAppTilausDB.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Logins.Add(userid);
                 db.SaveChanges();
                 return RedirectToAction("Index");
