@@ -29,7 +29,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // GET: Tilaukset/Details/5
+        // GET: Tilaukset/Details
         public ActionResult Details(int? id)
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -93,7 +93,7 @@ namespace WebAppTilausDB.Controllers
             return View(tilaukset);
         }
 
-        // GET: Tilaukset/Edit/5
+        // GET: Tilaukset/Edit
         public ActionResult Edit(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -125,10 +125,9 @@ namespace WebAppTilausDB.Controllers
                 ViewBag.Postinumero = new SelectList(postitmplista, "Value", "Text", tilaukset.Postinumero);
                 return View(tilaukset);
             }
-
         }
 
-        // POST: Tilaukset/Edit/5
+        // POST: Tilaukset/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TilausID,AsiakasID,Toimitusosoite,Postinumero,Tilauspvm,Toimituspvm")] Tilaukset tilaukset)
@@ -143,7 +142,7 @@ namespace WebAppTilausDB.Controllers
             return View(tilaukset);
         }
 
-        // GET: Tilaukset/Delete/5
+        // GET: Tilaukset/Delete
         public ActionResult Delete(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -165,7 +164,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Tilaukset/Delete/5
+        // POST: Tilaukset/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

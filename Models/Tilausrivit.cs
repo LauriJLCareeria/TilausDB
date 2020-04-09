@@ -19,5 +19,6 @@ namespace WebAppTilausDB.Models
         public Nullable<int> TuoteID { get; set; }
         public Nullable<int> Maara { get; set; }
         public Nullable<decimal> Ahinta { get; set; }
+        public virtual Tilaukset Tilaukset { get; set; }
     }
 }

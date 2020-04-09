@@ -24,11 +24,10 @@ namespace WebAppTilausDB.Controllers
             else
             {
                 return View(db.Tilausrivit.ToList());
-            }
-            
+            }        
         }
 
-        // GET: Tilausrivit/Details/5
+        // GET: Tilausrivit/Details
         public ActionResult Details(int? id)
         {
             if (Session["Käyttäjätunnus"] == null && Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -77,7 +76,7 @@ namespace WebAppTilausDB.Controllers
             return View(tilausrivit);
         }
 
-        // GET: Tilausrivit/Edit/5
+        // GET: Tilausrivit/Edit
         public ActionResult Edit(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -99,7 +98,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Tilausrivit/Edit/5
+        // POST: Tilausrivit/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TilausriviID,TilausID,TuoteID,Maara,Ahinta")] Tilausrivit tilausrivit)
@@ -113,7 +112,7 @@ namespace WebAppTilausDB.Controllers
             return View(tilausrivit);
         }
 
-        // GET: Tilausrivit/Delete/5
+        // GET: Tilausrivit/Delete
         public ActionResult Delete(int? id)
         {
             if (Session["KäyttäjätunnusAdmin"] == null && Session["KäyttäjätunnusSuper"] == null)
@@ -135,7 +134,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Tilausrivit/Delete/5
+        // POST: Tilausrivit/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

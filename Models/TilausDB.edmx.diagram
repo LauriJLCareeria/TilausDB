@@ -14,6 +14,8 @@
         <AssociationConnector Association="TilausDBModel.FK_Asiakkaat_Postitoimipaikat" ManuallyRouted="false" />
         <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Postitoimipaikat" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TilausDBModel.Logins" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TilausDBModel.UserRoles" Width="1.5" PointX="0.75" PointY="11" />
+        <AssociationConnector Association="TilausDBModel.FK__Logins__Rooli__5CD6CB2B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

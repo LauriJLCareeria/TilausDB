@@ -152,6 +152,9 @@
     <Compile Include="Models\Postitoimipaikat.cs">
       <DependentUpon>TilausDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserRoles.cs">
+      <DependentUpon>TilausDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Tilaukset.cs">
       <DependentUpon>TilausDB.tt</DependentUpon>

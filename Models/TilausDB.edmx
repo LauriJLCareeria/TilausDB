@@ -73,6 +73,24 @@
           <Property Name="Ahinta" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="KuvaLinkki" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Rooli" />
+          </Key>
+          <Property Name="Rooli" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Logins__Rooli__5CD6CB2B">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="0..1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="Rooli" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="Rooli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="1" />
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="*" />
@@ -105,6 +123,11 @@
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Logins__Rooli__5CD6CB2B" Association="Self.FK__Logins__Rooli__5CD6CB2B">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -221,6 +244,11 @@
             <End Role="Tilaukset" EntitySet="Tilaukset" />
           </AssociationSet>
           <EntitySet Name="Logins" EntityType="TilausDBModel.Logins" />
+          <EntitySet Name="UserRoles" EntityType="TilausDBModel.UserRoles" />
+          <AssociationSet Name="FK__Logins__Rooli__5CD6CB2B" Association="TilausDBModel.FK__Logins__Rooli__5CD6CB2B">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Logins">
           <Key>
@@ -230,7 +258,27 @@
           <Property Name="Käyttäjätunnus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Salasana" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Rooli" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="TilausDBModel.FK__Logins__Rooli__5CD6CB2B" FromRole="Logins" ToRole="UserRoles" />
         </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Rooli" />
+          </Key>
+          <Property Name="Rooli" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Logins" Relationship="TilausDBModel.FK__Logins__Rooli__5CD6CB2B" FromRole="UserRoles" ToRole="Logins" />
+        </EntityType>
+        <Association Name="FK__Logins__Rooli__5CD6CB2B">
+          <End Type="TilausDBModel.UserRoles" Role="UserRoles" Multiplicity="0..1" />
+          <End Type="TilausDBModel.Logins" Role="Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="Rooli" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="Rooli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -309,6 +357,13 @@
                 <ScalarProperty Name="Salasana" ColumnName="Salasana" />
                 <ScalarProperty Name="Käyttäjätunnus" ColumnName="Käyttäjätunnus" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="TilausDBModel.UserRoles">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="Rooli" ColumnName="Rooli" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

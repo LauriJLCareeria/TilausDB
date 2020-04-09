@@ -21,17 +21,13 @@ namespace WebAppTilausDB.Controllers
             {
                 return RedirectToAction("AccessDenied", "Logins");
             }
-            //else if (Session["KäyttäjätunnusAdmin"] == null)
-            //{
-            //    return RedirectToAction("AccessDenied", "Logins");
-            //}
             else
             {
                 return View(db.Logins.ToList());
             }
         }
 
-        // GET: Logins/Details/5
+        // GET: Logins/Details
         public ActionResult Details(int? id)
         {
             if (Session["KäyttäjätunnusSuper"] == null)
@@ -62,6 +58,16 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
+                List<SelectListItem> userrolelista = new List<SelectListItem>();
+                foreach (UserRoles userrole in db.UserRoles)
+                {
+                    userrolelista.Add(new SelectListItem
+                    {
+                        Value = userrole.Rooli.ToString(),
+                        Text = userrole.Rooli.ToString()
+                    });
+                }
+                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
                 return View();
             }
         }
@@ -87,7 +93,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // GET: Logins/Edit/5
+        // GET: Logins/Edit
         public ActionResult Edit(int? id)
         {
             if (Session["KäyttäjätunnusSuper"] == null)
@@ -100,6 +106,17 @@ namespace WebAppTilausDB.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                List<SelectListItem> userrolelista = new List<SelectListItem>();
+                foreach (UserRoles userrole in db.UserRoles)
+                {
+                    userrolelista.Add(new SelectListItem
+                    {
+                        Value = userrole.Rooli,
+                        Text = userrole.Rooli.ToString()
+                    });
+                }
+
+                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
                 Logins logins = db.Logins.Find(id);
                 if (logins == null)
                 {
@@ -109,7 +126,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // POST: Logins/Edit/5
+        // POST: Logins/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LoginId,Käyttäjätunnus,Salasana,Rooli")] Logins logins)
@@ -130,7 +147,7 @@ namespace WebAppTilausDB.Controllers
             }
         }
 
-        // GET: Logins/Delete/5
+        // GET: Logins/Delete
         public ActionResult Delete(int? id)
         {
             if (Session["KäyttäjätunnusSuper"] == null)
