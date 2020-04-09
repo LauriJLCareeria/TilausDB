@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebAppTilausDB;
 using WebAppTilausDB.Models;
 
 namespace WebAppTilausDB.Controllers
@@ -22,6 +21,10 @@ namespace WebAppTilausDB.Controllers
             {
                 return RedirectToAction("AccessDenied", "Logins");
             }
+            //else if (Session["KäyttäjätunnusAdmin"] == null)
+            //{
+            //    return RedirectToAction("AccessDenied", "Logins");
+            //}
             else
             {
                 return View(db.Logins.ToList());
@@ -59,17 +62,6 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
-                List<SelectListItem> userrolelista = new List<SelectListItem>();
-                foreach (UserRoles userrole in db.UserRoles)
-                {
-                    userrolelista.Add(new SelectListItem
-                    {
-                        Value = userrole.Rooli.ToString(),
-                        Text = userrole.Rooli.ToString()
-                    });
-                }
-
-                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
                 return View();
             }
         }
@@ -104,18 +96,16 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
-                List<SelectListItem> userrolelista = new List<SelectListItem>();
-                foreach (UserRoles userrole in db.UserRoles)
+                if (id == null)
                 {
-                    userrolelista.Add(new SelectListItem
-                    {
-                        Value = userrole.Rooli,
-                        Text = userrole.Rooli.ToString()
-                    });
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-
-                ViewBag.Rooli = new SelectList(userrolelista, "Value", "Text", null);
-                return View();
+                Logins logins = db.Logins.Find(id);
+                if (logins == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(logins);
             }
         }
 
